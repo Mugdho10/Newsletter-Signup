@@ -41,10 +41,17 @@ app.post('/', async (req, res) => {
     const url = 'https://us14.api.mailchimp.com/3.0/lists/d061755ff7/members';
     const options = {
         method: 'POST',
-        auth: 'anystring:d5ddc5ca562e3e86d276be33745ca4b9-us14'
+        auth: 'anystring:2bc56b0283e6e4f85db9eb103b731ff3-us14'
     };
 
     const request = https.request(url, options, (response) => {
+
+        if (response.statusCode === 200) {
+            res.sendFile(path.join(__dirname, 'success.html'));
+        } else {
+            res.sendFile(path.join(__dirname, 'failure.html'));
+        }
+
         response.on('data', (data) => {
             console.log(JSON.parse(data));
         });
@@ -64,5 +71,5 @@ app.get('/', (req, res) => {
 
 
 
-// API Key - d5ddc5ca562e3e86d276be33745ca4b9-us14
+// API Key - 2bc56b0283e6e4f85db9eb103b731ff3-us14
 // Audience/List ID - d061755ff7
